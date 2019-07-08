@@ -19,7 +19,7 @@ public class Main {
     }
 
      static String sizeGoodView(long sizeFile) {
-         String message = "";
+         String message = " ";
 
         if (sizeFile < 1024){
              message = String.format("Размер всех файлов:  %,d байт", sizeFile);
