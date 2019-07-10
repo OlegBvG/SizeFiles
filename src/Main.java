@@ -15,23 +15,23 @@ public class Main {
         } catch (IOException exc) {
             System.out.println("Oшибкa ввода-вывода");
         }
-        System.out.println(sizeGoodView(sizeAllFile));
+        System.out.println("Размер всех файлов: " + humanReadableBytes(sizeAllFile));
     }
 
-     static String sizeGoodView(long sizeFile) {
+     static String humanReadableBytes(long sizeFile) {
          String message = " ";
 
         if (sizeFile < 1024){
-             message = String.format("Размер всех файлов:  %,d байт", sizeFile);
+             message = String.format(" %,d байт", sizeFile);
         }
         else if (sizeFile >= 1024 && sizeFile < Math.pow(1024, 2)){
-             message = String.format("Размер всех файлов: %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 1)),"КБ", sizeFile);
+             message = String.format(" %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 1)),"КБ", sizeFile);
         }
         else if (sizeFile >= Math.pow(1024, 2) && sizeFile < Math.pow(1024, 3)){
-             message = String.format("Размер всех файлов: %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 2)), "МБ", sizeFile);
+             message = String.format(" %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 2)), "МБ", sizeFile);
         }
         else if (sizeFile >= Math.pow(1024, 3)){
-             message = String.format("Размер всех файлов: %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 3)), "ГБ", sizeFile);
+             message = String.format(" %,.2f %s (%,d байт)",  sizeFile/(Math.pow(1024, 3)), "ГБ", sizeFile);
         }
 
         return message;
@@ -41,7 +41,7 @@ public class Main {
     class MyFileVisitor extends SimpleFileVisitor<Path> {
         public FileVisitResult visitFile(Path path, BasicFileAttributes attribs) throws IOException {
             System.out.print(path);
-            System.out.println(" Paзмep файла: " + attribs.size() + " байтов");
+            System.out.println(" Paзмep файла: " + Main.humanReadableBytes(attribs.size()));
             Main.sizeAllFile += attribs.size();
             return FileVisitResult.CONTINUE;
         }
